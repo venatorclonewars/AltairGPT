@@ -1,0 +1,85 @@
+.stTextInput>div>div>input 
+{
+    background-color:rgb(47, 34, 34);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    position: sticky;
+    z-index: 2;
+}
+
+button[kind="secondary"] 
+{
+    background-color: #28a745; 
+    color: white;
+    border: none;
+    outline: none;
+}
+
+button[kind="secondary"]:hover 
+{
+    color: white;
+    cursor: pointer;
+}
+
+button[kind="secondary"]:active
+{
+    background-color: #28a745; 
+    color: white !important;
+    border: none !important;
+    outline: none !important;
+}
+
+.user-msg 
+{
+    margin-top: 1rem;
+    color: #34495e;
+    background-color: #ecf0f1;
+    padding: 0.75rem;
+    border-radius: 8px;
+}
+.gpt-msg 
+{
+    margin-top: 1rem;
+    color: #34495e;
+    background-color: #ecf0f1;
+    padding: 0.75rem;
+    border-radius: 8px;
+}
+
+div[data-testid="stVerticalBlock"] div:has(div.fixed-header) 
+{
+    position: fixed;
+    top: 60%;
+    //background-color: white;
+    z-index: 999;
+    width: 72%;
+    display: flex;
+    justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.fixed-header 
+{
+    width: 100%;
+    text-align: center;
+}
+
+div[data-testid="stVerticalBlock"] div:has(div.fixed-title) 
+{
+    position: fixed;
+    top: 10%;
+    background-color: transparent;
+    z-index: 999;
+    width: 72%;
+    display: flex;
+    justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.fixed-title 
+{
+    width: 100%;
+    text-align: center;
+}
