@@ -1,6 +1,6 @@
 .stTextInput>div>div>input 
 {
-    background-color:rgb(47, 34, 34);
+    background-color:rgb(34, 33, 47);
     border: 1px solid #ccc;
     border-radius: 8px;
     position: sticky;
@@ -17,6 +17,7 @@ button[kind="secondary"]
 
 button[kind="secondary"]:hover 
 {
+    background-color:rgb(75, 189, 101);
     color: white;
     cursor: pointer;
 }
@@ -27,6 +28,14 @@ button[kind="secondary"]:active
     color: white !important;
     border: none !important;
     outline: none !important;
+}
+
+button[kind="primary"] 
+{
+    background-color:rgb(171, 54, 41); 
+    color: white;
+    border: none;
+    outline: none;
 }
 
 .user-msg 
@@ -50,7 +59,7 @@ div[data-testid="stVerticalBlock"] div:has(div.fixed-header)
 {
     position: fixed;
     top: 60%;
-    //background-color: white;
+    //background-color: #00CFFF;
     z-index: 999;
     width: 72%;
     display: flex;
@@ -68,10 +77,10 @@ div[data-testid="stVerticalBlock"] div:has(div.fixed-header)
 div[data-testid="stVerticalBlock"] div:has(div.fixed-title) 
 {
     position: fixed;
-    top: 10%;
-    background-color: transparent;
+    top: 5%;
+    //background-color: #C0C0C0;
     z-index: 999;
-    width: 72%;
+    width: 92%;
     display: flex;
     justify-content: center;
     left: 50%;

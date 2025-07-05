@@ -1,5 +1,6 @@
 import streamlit as st
 from streamlit.components.v1 import html
+from streamlit import cache_resource
 import fitz
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage
@@ -65,9 +66,9 @@ FAISS_INDEX_PATH = "faiss_index"
 
 @st.cache_resource(show_spinner=True)
 def load_vectorstore(api_key: str):
-    if os.path.exists(SHARED_FAISS_INDEX_PATH):
+    if os.path.exists(FAISS_INDEX_PATH):
         vectorstore = FAISS.load_local(
-            SHARED_FAISS_INDEX_PATH,
+            FAISS_INDEX_PATH,
             OpenAIEmbeddings(openai_api_key=api_key),
             allow_dangerous_deserialization=True
         )
@@ -157,10 +158,18 @@ with header:
         value=st.session_state.get("chat_input", "")  # set current input value
     )
     
-    if st.button("Send"):
-        add_message("user", user_input)
-        st.session_state.waiting_for_answer = True
+    col1, col2, _ = st.columns([0.5, 2, 3])
+    with col1:
+        if st.button("Send"):
+            add_message("user", user_input)
+            st.session_state.waiting_for_answer = True
 
+    with col2:
+        if st.button("Delete my PDFs from memory", type="primary"):
+            st.session_state.added_pdf_names = set()
+            st.session_state.vectorstore = load_vectorstore(api_key)
+            cache_resource.clear()
+            
 render_messages()
 
 # If waiting for GPT answer, generate it and add it, then reset flag and rerun
