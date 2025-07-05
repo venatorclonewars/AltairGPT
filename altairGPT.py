@@ -35,8 +35,6 @@ api_key = os.getenv("OPENAI_API_KEY")
 #PDF_PATH = "Simon_Kete_Resume.pdf"
 PDF_PATH = os.path.join(os.path.dirname(__file__), "Simon_Kete_Resume.pdf")
 
-FAISS_INDEX_PATH = "faiss_index"
-
 import fitz
 import os
 
@@ -63,7 +61,7 @@ def extract_text_from_pdf(pdf_source):
     return text
 
 
-SHARED_FAISS_INDEX_PATH = "shared_faiss_index"
+FAISS_INDEX_PATH = "faiss_index"
 
 @st.cache_resource(show_spinner=True)
 def load_vectorstore(api_key: str):
