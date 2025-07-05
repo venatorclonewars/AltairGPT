@@ -9,7 +9,7 @@
 
 button[kind="secondary"] 
 {
-    background-color: #28a745; 
+    background-color:rgb(47, 174, 77); 
     color: white;
     border: none;
     outline: none;
@@ -24,7 +24,7 @@ button[kind="secondary"]:hover
 
 button[kind="secondary"]:active
 {
-    background-color: #28a745; 
+    background-color:rgb(47, 174, 77); 
     color: white !important;
     border: none !important;
     outline: none !important;
@@ -32,7 +32,7 @@ button[kind="secondary"]:active
 
 button[kind="primary"] 
 {
-    background-color:rgb(171, 54, 41); 
+    background-color:rgb(176, 59, 46); 
     color: white;
     border: none;
     outline: none;

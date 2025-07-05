@@ -167,9 +167,9 @@ with header:
     with col2:
         if st.button("Delete my PDFs from memory", type="primary"):
             st.session_state.added_pdf_names = set()
-            st.session_state.vectorstore = load_vectorstore(api_key)
             cache_resource.clear()
-            
+            st.session_state.vectorstore = load_vectorstore(api_key)
+           
 render_messages()
 
 # If waiting for GPT answer, generate it and add it, then reset flag and rerun
