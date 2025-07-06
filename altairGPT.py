@@ -173,6 +173,7 @@ with header:
 render_messages()
 
 # If waiting for GPT answer, generate it and add it, then reset flag and rerun
+#This way it renders users messages quickly
 if st.session_state.waiting_for_answer:
     with st.spinner("Thinking..."):
         answer = get_answer(st.session_state.messages[-1][1])
