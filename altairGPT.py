@@ -96,6 +96,11 @@ def add_pdf_to_vectorstore(pdf_file, vectorstore):
 
 def add_message(role, content):
     st.session_state.messages.append((role, content))
+   
+def send_message():
+    add_message("user", user_input)
+    st.session_state.waiting_for_answer = True
+
 
 def get_answer(question):
     docs = retriever.get_relevant_documents(question)
@@ -159,11 +164,11 @@ with header:
     )
     
     col1, col2, _ = st.columns([0.5, 2, 3])
-    with col1:
-        if st.button("Send"):
-            add_message("user", user_input)
-            st.session_state.waiting_for_answer = True
 
+    with col1:
+        send_disabled = st.session_state.waiting_for_answer
+        st.button("Send", disabled=send_disabled, on_click=send_message)
+            
     with col2:
         if st.button("Delete my PDFs from memory", type="primary"):
             st.session_state.added_pdf_names = set()
@@ -182,3 +187,4 @@ if st.session_state.waiting_for_answer:
     role, msg = st.session_state.messages[-1]
     st.markdown(f"<div class='gpt-msg'>🤖 GPT: {msg}</div>", unsafe_allow_html=True)
     st.session_state.waiting_for_answer = False
+    st.rerun()
