@@ -100,7 +100,7 @@ def add_message(role, content):
 def send_message():
     add_message("user", user_input)
     st.session_state.waiting_for_answer = True
-    st.rerun()
+
 
 def get_answer(question):
     docs = retriever.get_relevant_documents(question)
@@ -167,8 +167,11 @@ with header:
 
     with col1:
         send_disabled = st.session_state.waiting_for_answer
-        st.button("Send", disabled=send_disabled, on_click=send_message)
-        
+        #st.button("Send", disabled=send_disabled, on_click=send_message)
+        if st.button("Send", disabled=st.session_state.waiting_for_answer):
+            send_message()
+            st.rerun()
+
 
     with col2:
         if st.button("Delete my PDFs from memory", type="primary"):
