@@ -167,8 +167,11 @@ with header:
 
     with col1:
         send_disabled = st.session_state.waiting_for_answer
-        st.button("Send", disabled=send_disabled, on_click=send_message)
-            
+        #st.button("Send", disabled=send_disabled, on_click=send_message)
+        if st.button("Send", disabled=st.session_state.waiting_for_answer):
+            send_message()
+            st.rerun()
+   
     with col2:
         if st.button("Delete my PDFs from memory", type="primary"):
             st.session_state.added_pdf_names = set()
