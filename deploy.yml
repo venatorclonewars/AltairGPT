@@ -5,5 +5,7 @@ jobs:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
     steps:
       - uses: actions/checkout@v3
-      - name: Run your app or script
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run script
         run: python altairGPT.py
