@@ -161,16 +161,23 @@ with header:
         label_visibility="collapsed", 
         placeholder=st.session_state.get("placeholder", "Type your message..."),
         value=st.session_state.get("chat_input", "")  # set current input value
-    )
+    ).strip()
     
     col1, col2, _ = st.columns([0.5, 2, 3])
 
     with col1:
-        send_disabled = st.session_state.waiting_for_answer
-        #st.button("Send", disabled=send_disabled, on_click=send_message)
-        if st.button("Send", disabled=st.session_state.waiting_for_answer):
-            send_message()
-            st.rerun()
+        if not st.session_state.get("waiting_for_answer", False):
+            send_clicked = st.button("Send")
+            if send_clicked:
+                user_input = st.session_state.get("chat_input", "").strip()
+                if user_input:
+                    add_message("user", user_input)
+                    st.session_state.waiting_for_answer = True
+                    #st.session_state.chat_input = ""
+                    st.rerun()
+        else:
+            # Button disabled automatically (add button disabled=True outside if)
+            st.button("Send", disabled=True)
 
 
     with col2:
