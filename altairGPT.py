@@ -11,6 +11,7 @@ from langchain.chains import RetrievalQA
 from dotenv import load_dotenv
 from tempfile import NamedTemporaryFile
 import os
+import time
 
 def load_css(file_name):
     css_path = os.path.join(os.path.dirname(__file__), file_name)
@@ -34,9 +35,12 @@ if "added_pdf_names" not in st.session_state:
 if "lock_send" not in st.session_state:
     st.session_state.lock_send = False
 
+if "last_send_time" not in st.session_state:
+    st.session_state.last_send_time = 0
+
 # Clear the chat input safely before widget is created
 if st.session_state.get("clear_input", False):
-    st.session_state["chat_input"] = ""
+    st.session_state.chat_input = ""
     st.session_state["clear_input"] = False
 
 
