@@ -31,6 +31,12 @@ if "waiting_for_answer" not in st.session_state:
 if "added_pdf_names" not in st.session_state:
     st.session_state.added_pdf_names = set()
 
+# Clear the chat input safely before widget is created
+if st.session_state.get("clear_input", False):
+    st.session_state["chat_input"] = ""
+    st.session_state["clear_input"] = False
+
+
 api_key = os.getenv("OPENAI_API_KEY")
 
 #PDF_PATH = "Simon_Kete_Resume.pdf"
@@ -97,11 +103,6 @@ def add_pdf_to_vectorstore(pdf_file, vectorstore):
 def add_message(role, content):
     st.session_state.messages.append((role, content))
    
-def send_message():
-    add_message("user", user_input)
-    st.session_state.waiting_for_answer = True
-
-
 def get_answer(question):
     docs = retriever.get_relevant_documents(question)
     context = "\n\n".join([doc.page_content for doc in docs])
@@ -155,7 +156,7 @@ with header:
 
     retriever = st.session_state.vectorstore.as_retriever()
 
-    user_input = st.text_input(
+    st.text_input(
         "Your message", 
         key="chat_input", 
         label_visibility="collapsed", 
@@ -173,8 +174,9 @@ with header:
                 if user_input:
                     add_message("user", user_input)
                     st.session_state.waiting_for_answer = True
-                    #st.session_state.chat_input = ""
+                    st.session_state["clear_input"] = True
                     st.rerun()
+                    
         else:
             # Button disabled automatically (add button disabled=True outside if)
             st.button("Send", disabled=True)
