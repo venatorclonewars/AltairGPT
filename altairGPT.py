@@ -184,6 +184,10 @@ with header:
                 st.session_state.last_sent_input = user_input
                 add_message("user", user_input)
                 st.session_state.clear_input = True
+                
+                if st.session_state.waiting_for_answer:
+                    st.session_state.clear_input = True 
+
                 st.rerun()
 
 
