@@ -214,7 +214,9 @@ if st.session_state.waiting_for_answer:
     role, msg = st.session_state.messages[-1]
     
     st.markdown(f"<div class='gpt-msg'>🤖 GPT: {msg}</div>", unsafe_allow_html=True)
-    
+    bottom_spacer = st.empty()
+    bottom_spacer.markdown("<div style='height: 100px;'></div>", unsafe_allow_html=True)
+
     st.session_state.waiting_for_answer = False
     st.session_state.lock_send = False
     st.session_state.last_sent_input = ""
