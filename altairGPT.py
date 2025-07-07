@@ -31,6 +31,9 @@ if "waiting_for_answer" not in st.session_state:
 if "added_pdf_names" not in st.session_state:
     st.session_state.added_pdf_names = set()
 
+if "lock_send" not in st.session_state:
+    st.session_state.lock_send = False
+
 # Clear the chat input safely before widget is created
 if st.session_state.get("clear_input", False):
     st.session_state["chat_input"] = ""
@@ -169,9 +172,10 @@ with header:
     with col1:
         send_clicked = st.button("Send", disabled=st.session_state.waiting_for_answer)
 
-        if send_clicked and not st.session_state.waiting_for_answer:
+        if send_clicked and not st.session_state.waiting_for_answer and not  st.session_state.lock_send:
             user_input = st.session_state.chat_input.strip()
             if user_input:
+                st.session_state.lock_send = True
                 add_message("user", user_input)
                 st.session_state.waiting_for_answer = True
                 st.session_state.clear_input = True
@@ -195,4 +199,5 @@ if st.session_state.waiting_for_answer:
     role, msg = st.session_state.messages[-1]
     st.markdown(f"<div class='gpt-msg'>🤖 GPT: {msg}</div>", unsafe_allow_html=True)
     st.session_state.waiting_for_answer = False
+    st.session_state.lock_send = False
     st.rerun()
