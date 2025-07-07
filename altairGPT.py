@@ -170,20 +170,22 @@ with header:
     col1, col2, _ = st.columns([0.5, 2, 3])
 
     with col1:
-        
-        if not st.session_state.get("lock_send"):
-            send_clicked = st.button("Send")
-        else:
-            send_clicked = st.button("Send", disabled=True)
 
-        if send_clicked and not st.session_state.waiting_for_answer and not  st.session_state.lock_send:
+        if "last_sent_input" not in st.session_state:
+            st.session_state.last_sent_input = None
+
+        send_clicked = st.button("Send", disabled=st.session_state.lock_send)
+
+        if send_clicked and not st.session_state.lock_send:
             user_input = st.session_state.chat_input.strip()
-            if user_input:
+            if user_input and user_input != st.session_state.last_sent_input:
                 st.session_state.lock_send = True
-                add_message("user", user_input)
                 st.session_state.waiting_for_answer = True
+                st.session_state.last_sent_input = user_input
+                add_message("user", user_input)
                 st.session_state.clear_input = True
-                st.rerun()
+                st.experimental_rerun()
+
 
     with col2:
         if st.button("Delete my PDFs from memory", type="primary"):
