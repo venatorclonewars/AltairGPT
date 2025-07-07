@@ -174,7 +174,7 @@ with header:
                 if user_input:
                     add_message("user", user_input)
                     st.session_state.waiting_for_answer = True
-                    st.session_state["clear_input"] = True
+                    st.session_state.clear_input = True
                     st.rerun()
                     
         else:
