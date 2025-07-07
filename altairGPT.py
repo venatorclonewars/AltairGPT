@@ -35,9 +35,6 @@ if "added_pdf_names" not in st.session_state:
 if "lock_send" not in st.session_state:
     st.session_state.lock_send = False
 
-if "last_send_time" not in st.session_state:
-    st.session_state.last_send_time = 0
-
 # Clear the chat input safely before widget is created
 if st.session_state.get("clear_input", False):
     st.session_state.chat_input = ""
@@ -127,6 +124,10 @@ def render_messages():
         else:
             st.markdown(f"<div class='gpt-msg'>🤖 GPT: {msg}</div>", unsafe_allow_html=True)
 
+    st.markdown("""
+        <div style="height: 300px; width: 100%;"></div>
+    """, unsafe_allow_html=True)
+
 def render_pdf_font():
     if "added_pdf_names" in st.session_state and st.session_state.added_pdf_names:
         st.markdown("Uploaded PDFs:")
@@ -210,8 +211,12 @@ if st.session_state.waiting_for_answer:
         answer = get_answer(st.session_state.messages[-1][1])
     
     add_message("assistant", answer)
+
     role, msg = st.session_state.messages[-1]
+    
     st.markdown(f"<div class='gpt-msg'>🤖 GPT: {msg}</div>", unsafe_allow_html=True)
+    render_messages()
+
     st.session_state.waiting_for_answer = False
     st.session_state.lock_send = False
     st.session_state.last_sent_input = ""

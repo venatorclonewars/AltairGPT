@@ -1,3 +1,8 @@
+html 
+{
+  scroll-padding-top: 100px;
+}
+
 .stTextInput>div>div>input 
 {
     background-color:rgb(34, 33, 47);
@@ -54,6 +59,12 @@ button[kind="primary"]
     padding: 0.75rem;
     border-radius: 8px;
 }
+
+.message-container 
+{
+  padding-bottom: 3000px; /* reserve space below messages */
+}
+
 
 div[data-testid="stVerticalBlock"] div:has(div.fixed-header) 
 {
