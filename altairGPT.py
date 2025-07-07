@@ -170,7 +170,11 @@ with header:
     col1, col2, _ = st.columns([0.5, 2, 3])
 
     with col1:
-        send_clicked = st.button("Send", disabled=st.session_state.waiting_for_answer)
+        
+        if not st.session_state.get("lock_send"):
+            send_clicked = st.button("Send")
+        else:
+            send_clicked = st.button("Send", disabled=True)
 
         if send_clicked and not st.session_state.waiting_for_answer and not  st.session_state.lock_send:
             user_input = st.session_state.chat_input.strip()
