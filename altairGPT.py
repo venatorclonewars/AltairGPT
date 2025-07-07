@@ -207,4 +207,5 @@ if st.session_state.waiting_for_answer:
     st.session_state.waiting_for_answer = False
     st.session_state.lock_send = False
     st.session_state.last_sent_input = ""
+    st.session_state.clear_input = False
     st.rerun()
