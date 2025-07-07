@@ -184,7 +184,7 @@ with header:
                 st.session_state.last_sent_input = user_input
                 add_message("user", user_input)
                 st.session_state.clear_input = True
-                st.experimental_rerun()
+                st.rerun()
 
 
     with col2:
@@ -206,4 +206,5 @@ if st.session_state.waiting_for_answer:
     st.markdown(f"<div class='gpt-msg'>🤖 GPT: {msg}</div>", unsafe_allow_html=True)
     st.session_state.waiting_for_answer = False
     st.session_state.lock_send = False
+    st.session_state.last_sent_input = ""
     st.rerun()
